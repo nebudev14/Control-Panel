@@ -13,7 +13,7 @@ app = Flask(__name__)
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri='https://github.com/NebuDev14', scope="user-read-currently-playing"))
 
 current_track = sp.current_user_playing_track()
-print(current_track['item']['album']['name'])
+
 
 @app.route("/music", methods=['POST'])
 def info():
@@ -27,7 +27,11 @@ def info():
 
 @app.route("/musicinfo", methods=['GET'])
 def musicinfo():
-    return jsonify({"info": "yes"})
+    current_track = sp.current_user_playing_track()
+    return jsonify({"info": {
+        "current_song": current_track['item']['album']['name']
+    }})
 
 if __name__ == '__main__':
     app.run(debug=True)
+
