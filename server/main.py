@@ -15,10 +15,14 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secre
 current_track = sp.current_user_playing_track()
 print(current_track['item']['album']['name'])
 
-@app.route("/info", methods=['POST'])
+@app.route("/music", methods=['POST'])
 def info():
     if request.json['query'] == "play_pause":
         win32api.keybd_event(VK_MEDIA_PLAY_PAUSE, 0, KEYEVENTF_EXTENDEDKEY, 0)
+    elif request.json['query'] == "prev":
+        win32api.keybd_event(VK_MEDIA_PREV_TRACK, 0, KEYEVENTF_EXTENDEDKEY, 0)
+    elif request.json['query'] == "next":
+        win32api.keybd_event(VK_MEDIA_NEXT_TRACK, 0, KEYEVENTF_EXTENDEDKEY, 0)
     return jsonify({"success": "played/paused music"})
 
 if __name__ == '__main__':
