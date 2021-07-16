@@ -23,7 +23,11 @@ def info():
         win32api.keybd_event(VK_MEDIA_PREV_TRACK, 0, KEYEVENTF_EXTENDEDKEY, 0)
     elif request.json['query'] == "next":
         win32api.keybd_event(VK_MEDIA_NEXT_TRACK, 0, KEYEVENTF_EXTENDEDKEY, 0)
-    return jsonify({"success": "played/paused music"})
+    return jsonify({"message": "modified music!"})
+
+@app.route("/musicinfo", methods=['GET'])
+def musicinfo():
+    return jsonify({"info": "yes"})
 
 if __name__ == '__main__':
     app.run(debug=True)
