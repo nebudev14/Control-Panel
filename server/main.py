@@ -7,8 +7,9 @@ app = Flask(__name__)
 
 @app.route("/info", methods=['POST'])
 def info():
-    print(request.json)
-    return jsonify({"test": "yes"})
+    if request.json['query'] == "play_pause":
+        win32api.keybd_event(VK_MEDIA_PLAY_PAUSE, 0, KEYEVENTF_EXTENDEDKEY, 0)
+    return jsonify({"success": "played/paused music"})
 
 if __name__ == '__main__':
     app.run(debug=True)
