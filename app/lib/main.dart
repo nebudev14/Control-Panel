@@ -33,6 +33,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  void playSong() {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,9 +45,10 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'Buttons',
-            ),
+            FloatingActionButton(
+                onPressed: playSong,
+                tooltip: 'Play Song',
+                child: Icon(Icons.play_arrow))
           ],
         ),
       ),
