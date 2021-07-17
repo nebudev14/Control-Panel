@@ -36,11 +36,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  getSongData() async {
+  String _currentSong = "";
+
+  void getSongData() async {
     const url = 'http://localhost:5000/musicinfo';
     var response =
         await http.get(url, headers: {'Content-Type': 'application/json'});
-    return jsonDecode(response.body)['info']['title'].toString();
+    setState(() {
+      _currentSong = jsonDecode(response.body)['info']['title'].toString();
+    });
   }
 
   void previousSong() async {
@@ -69,10 +73,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(songTitle),
+        title: Text('$_currentSong'),
       ),
       body: Center(
         child: Row(
