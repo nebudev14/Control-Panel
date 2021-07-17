@@ -36,38 +36,43 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  void playSong() async {
-    const url = 'http://localhost:5000/music';
-    const payload = {"query": "play_pause"};
-    var response = await http.post(url,
-        body: jsonEncode(payload),
-        headers: {'Content-Type': 'application/json'});
-    print(response.body);
+  getSongData() async {
+    const url = 'http://localhost:5000/musicinfo';
+    var response =
+        await http.get(url, headers: {'Content-Type': 'application/json'});
+    return jsonDecode(response.body)['info']['title'].toString();
   }
 
   void previousSong() async {
     const url = 'http://localhost:5000/music';
-    const payload = {"query": "prev"};
+    const info = {"query": "prev"};
     var response = await http.post(url,
-        body: jsonEncode(payload),
-        headers: {'Content-Type': 'application/json'});
+        body: jsonEncode(info), headers: {'Content-Type': 'application/json'});
+    print(response.body);
+  }
+
+  void playSong() async {
+    const url = 'http://localhost:5000/music';
+    const info = {"query": "play_pause"};
+    var response = await http.post(url,
+        body: jsonEncode(info), headers: {'Content-Type': 'application/json'});
     print(response.body);
   }
 
   void nextSong() async {
     const url = 'http://localhost:5000/music';
-    const payload = {"query": "next"};
+    const info = {"query": "next"};
     var response = await http.post(url,
-        body: jsonEncode(payload),
-        headers: {'Content-Type': 'application/json'});
+        body: jsonEncode(info), headers: {'Content-Type': 'application/json'});
     print(response.body);
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(songTitle),
       ),
       body: Center(
         child: Row(
@@ -85,6 +90,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: nextSong,
                 tooltip: 'Next Song',
                 child: Icon(Icons.skip_next)),
+            FloatingActionButton(
+                onPressed: getSongData,
+                tooltip: 'Get Song Data',
+                child: Icon(Icons.search)),
           ],
         ),
       ),
