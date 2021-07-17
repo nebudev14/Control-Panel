@@ -39,7 +39,27 @@ class _MyHomePageState extends State<MyHomePage> {
   void playSong() async {
     const url = 'http://localhost:5000/music';
     const payload = {"query": "play_pause"};
-    var response = await http.post(url, body: jsonEncode(payload), headers: {'Content-Type': 'application/json'});
+    var response = await http.post(url,
+        body: jsonEncode(payload),
+        headers: {'Content-Type': 'application/json'});
+    print(response.body);
+  }
+
+  void previousSong() async {
+    const url = 'http://localhost:5000/music';
+    const payload = {"query": "prev"};
+    var response = await http.post(url,
+        body: jsonEncode(payload),
+        headers: {'Content-Type': 'application/json'});
+    print(response.body);
+  }
+
+  void nextSong() async {
+    const url = 'http://localhost:5000/music';
+    const payload = {"query": "next"};
+    var response = await http.post(url,
+        body: jsonEncode(payload),
+        headers: {'Content-Type': 'application/json'});
     print(response.body);
   }
 
@@ -50,13 +70,21 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
+            FloatingActionButton(
+                onPressed: previousSong,
+                tooltip: 'Previous song',
+                child: Icon(Icons.skip_previous)),
             FloatingActionButton(
                 onPressed: playSong,
                 tooltip: 'Play Song',
-                child: Icon(Icons.play_arrow))
+                child: Icon(Icons.play_arrow)),
+            FloatingActionButton(
+                onPressed: nextSong,
+                tooltip: 'Next Song',
+                child: Icon(Icons.skip_next)),
           ],
         ),
       ),
