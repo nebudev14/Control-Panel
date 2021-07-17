@@ -29,9 +29,13 @@ def info():
 def musicinfo():
     current_track = sp.current_user_playing_track()
     return jsonify({"info": {
-        "current_song": current_track['item']['album']['name']
+        "title": current_track['item']['name'],
+        "artist": current_track['item']['artists'][0]['name'],
+        "current_song_album": current_track['item']['album']['name'],
+        "current_song_duration": current_track['item']['duration_ms'],
+        "progress": current_track['progress_ms']
     }})
 
-if __name__ == '__main__':
-    app.run(debug=True)
 
+if __name__ == "__main__":
+    app.run(debug=True)
