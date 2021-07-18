@@ -50,13 +50,15 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _currentSong = jsonDecode(response.body)['info']['title'].toString();
       _currentArtist = jsonDecode(response.body)['info']['artist'].toString();
-      _imageUrl =
-          jsonDecode(response.body)['info']['images'][1]['url'].toString();
+      _imageUrl = jsonDecode(response.body)['info']['images'][1]['url'].toString();
+      _songProgress = int.parse(jsonDecode(response.body)['info']['progress'].toString());
+      _songDuration = int.parse(jsonDecode(response.body)['info']['current_song_duration'].toString());
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    getSongData();
     return Scaffold(
       body: Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
         Column(
@@ -64,7 +66,6 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Container(
                 margin: EdgeInsets.all(15.0), child: Image.network(_imageUrl)),
-                
           ],
         ),
         Container(
