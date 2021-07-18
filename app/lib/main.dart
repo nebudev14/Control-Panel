@@ -37,6 +37,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String _currentSong = "";
+  String _currentArtist = "";
 
   void getSongData() async {
     const url = 'http://localhost:5000/musicinfo';
@@ -44,6 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
         await http.get(url, headers: {'Content-Type': 'application/json'});
     setState(() {
       _currentSong = jsonDecode(response.body)['info']['title'].toString();
+      _currentArtist = jsonDecode(response.body)['info']['artist'].toString();
     });
   }
 
@@ -75,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('$_currentSong'),
+        title: Text('Now playing: $_currentSong by $_currentArtist'),
       ),
       body: Center(
         child: Row(
