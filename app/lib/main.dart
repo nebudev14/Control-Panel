@@ -39,6 +39,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String _currentSong = "";
   String _currentArtist = "";
+  String _imageUrl = "";
 
   void getSongData() async {
     const url = 'http://localhost:5000/musicinfo';
@@ -47,40 +48,48 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _currentSong = jsonDecode(response.body)['info']['title'].toString();
       _currentArtist = jsonDecode(response.body)['info']['artist'].toString();
+      _imageUrl =
+          jsonDecode(response.body)['info']['images'][1]['url'].toString();
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Now playing: $_currentSong by $_currentArtist'),
-      ),
       body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-              margin: EdgeInsets.all(60.0),
+              margin: EdgeInsets.all(10.0),
+              child: Text(
+                'Now playing: $_currentSong by $_currentArtist',
+                style: TextStyle(fontSize: 35)
+              ),
+            ),
+            Container(
+                margin: EdgeInsets.all(15.0), child: Image.network(_imageUrl)),
+            Container(
+              margin: EdgeInsets.all(10.0),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Container(
-                        height: 80.0,
-                        width: 80.0,
+                        height: 60.0,
+                        width: 60.0,
                         child: FloatingActionButton(
                             onPressed: previousSong,
                             tooltip: 'Previous song',
                             child: Icon(Icons.skip_previous))),
                     Container(
-                        height: 80.0,
-                        width: 80.0,
+                        height: 60.0,
+                        width: 60.0,
                         child: FloatingActionButton(
                             onPressed: playSong,
                             tooltip: 'Play Song',
                             child: Icon(Icons.play_arrow))),
                     Container(
-                        height: 80.0,
-                        width: 80.0,
+                        height: 60.0,
+                        width: 60.0,
                         child: FloatingActionButton(
                             onPressed: nextSong,
                             tooltip: 'Next Song',
@@ -92,8 +101,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Container(
-                        height: 80.0,
-                        width: 80.0,
+                        height: 60.0,
+                        width: 60.0,
                         child: FloatingActionButton(
                             onPressed: getSongData,
                             tooltip: 'Get Song Data',

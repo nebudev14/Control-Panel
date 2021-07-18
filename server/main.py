@@ -37,7 +37,8 @@ def musicinfo():
         "artist": current_track['item']['artists'][0]['name'],
         "current_song_album": current_track['item']['album']['name'],
         "current_song_duration": current_track['item']['duration_ms'],
-        "progress": current_track['progress_ms']
+        "progress": current_track['progress_ms'],
+        "images": current_track['item']['album']['images']
     }})
 
 
