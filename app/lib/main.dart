@@ -19,8 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+          accentColor: Colors.greenAccent[400], brightness: Brightness.dark),
       home: MyHomePage(title: 'Control Panel'),
     );
   }
@@ -79,29 +78,51 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text('Now playing: $_currentSong by $_currentArtist'),
       ),
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            FloatingActionButton(
-                onPressed: previousSong,
-                tooltip: 'Previous song',
-                child: Icon(Icons.skip_previous)),
-            FloatingActionButton(
-                onPressed: playSong,
-                tooltip: 'Play Song',
-                child: Icon(Icons.play_arrow)),
-            FloatingActionButton(
-                onPressed: nextSong,
-                tooltip: 'Next Song',
-                child: Icon(Icons.skip_next)),
-            FloatingActionButton(
-                onPressed: getSongData,
-                tooltip: 'Get Song Data',
-                child: Icon(Icons.search)),
-          ],
-        ),
-      ),
+            Container(
+              margin: EdgeInsets.all(60.0),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Container(
+                        height: 80.0,
+                        width: 80.0,
+                        child: FloatingActionButton(
+                            onPressed: previousSong,
+                            tooltip: 'Previous song',
+                            child: Icon(Icons.skip_previous))),
+                    Container(
+                        height: 80.0,
+                        width: 80.0,
+                        child: FloatingActionButton(
+                            onPressed: playSong,
+                            tooltip: 'Play Song',
+                            child: Icon(Icons.play_arrow))),
+                    Container(
+                        height: 80.0,
+                        width: 80.0,
+                        child: FloatingActionButton(
+                            onPressed: nextSong,
+                            tooltip: 'Next Song',
+                            child: Icon(Icons.skip_next))),
+                  ]),
+            ),
+            Container(
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Container(
+                        height: 80.0,
+                        width: 80.0,
+                        child: FloatingActionButton(
+                            onPressed: getSongData,
+                            tooltip: 'Get Song Data',
+                            child: Icon(Icons.refresh))),
+                  ]),
+            )
+          ]),
     );
   }
 }
