@@ -40,6 +40,8 @@ class _MyHomePageState extends State<MyHomePage> {
   String _currentSong = "";
   String _currentArtist = "";
   String _imageUrl = "";
+  int _songProgress = 0;
+  int _songDuration = 0;
 
   void getSongData() async {
     const url = 'http://localhost:5000/musicinfo';
@@ -56,60 +58,74 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+        Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-              margin: EdgeInsets.all(10.0),
-              child: Text(
-                'Now playing: $_currentSong by $_currentArtist',
-                style: TextStyle(fontSize: 35)
-              ),
-            ),
-            Container(
                 margin: EdgeInsets.all(15.0), child: Image.network(_imageUrl)),
-            Container(
-              margin: EdgeInsets.all(10.0),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Container(
-                        height: 60.0,
-                        width: 60.0,
-                        child: FloatingActionButton(
-                            onPressed: previousSong,
-                            tooltip: 'Previous song',
-                            child: Icon(Icons.skip_previous))),
-                    Container(
-                        height: 60.0,
-                        width: 60.0,
-                        child: FloatingActionButton(
-                            onPressed: playSong,
-                            tooltip: 'Play Song',
-                            child: Icon(Icons.play_arrow))),
-                    Container(
-                        height: 60.0,
-                        width: 60.0,
-                        child: FloatingActionButton(
-                            onPressed: nextSong,
-                            tooltip: 'Next Song',
-                            child: Icon(Icons.skip_next))),
-                  ]),
-            ),
-            Container(
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Container(
-                        height: 60.0,
-                        width: 60.0,
-                        child: FloatingActionButton(
-                            onPressed: getSongData,
-                            tooltip: 'Get Song Data',
-                            child: Icon(Icons.refresh))),
-                  ]),
-            )
-          ]),
+                
+          ],
+        ),
+        Container(
+          margin: EdgeInsets.all(100.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(bottom: 25.0),
+                child: Text('$_currentSong by $_currentArtist',
+                    style:
+                        TextStyle(fontSize: 43, fontWeight: FontWeight.bold)),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 10.0, bottom: 40.0),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Container(
+                          margin: EdgeInsets.only(left: 15.0, right: 15.0),
+                          height: 60.0,
+                          width: 60.0,
+                          child: FloatingActionButton(
+                              onPressed: previousSong,
+                              tooltip: 'Previous song',
+                              child: Icon(Icons.skip_previous))),
+                      Container(
+                          margin: EdgeInsets.only(left: 15.0, right: 15.0),
+                          height: 60.0,
+                          width: 60.0,
+                          child: FloatingActionButton(
+                              onPressed: playSong,
+                              tooltip: 'Play Song',
+                              child: Icon(Icons.play_arrow))),
+                      Container(
+                          margin: EdgeInsets.only(left: 15.0, right: 15.0),
+                          height: 60.0,
+                          width: 60.0,
+                          child: FloatingActionButton(
+                              onPressed: nextSong,
+                              tooltip: 'Next Song',
+                              child: Icon(Icons.skip_next))),
+                    ]),
+              ),
+              Container(
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Container(
+                          height: 60.0,
+                          width: 60.0,
+                          child: FloatingActionButton(
+                              onPressed: getSongData,
+                              tooltip: 'Get Song Data',
+                              child: Icon(Icons.refresh))),
+                    ]),
+              )
+            ],
+          ),
+        )
+      ]),
     );
   }
 }
