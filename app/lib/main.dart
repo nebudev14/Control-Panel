@@ -50,34 +50,54 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _currentSong = jsonDecode(response.body)['info']['title'].toString();
       _currentArtist = jsonDecode(response.body)['info']['artist'].toString();
-      _imageUrl = jsonDecode(response.body)['info']['images'][1]['url'].toString();
-      _songProgress = int.parse(jsonDecode(response.body)['info']['progress'].toString());
-      _songDuration = int.parse(jsonDecode(response.body)['info']['current_song_duration'].toString());
+      _imageUrl =
+          jsonDecode(response.body)['info']['images'][0]['url'].toString();
+      _songProgress =
+          int.parse(jsonDecode(response.body)['info']['progress'].toString());
+      _songDuration = int.parse(jsonDecode(response.body)['info']
+              ['current_song_duration']
+          .toString());
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    getSongData();
     return Scaffold(
-      body: Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+        body: Padding(
+      padding: EdgeInsets.only(left: 20.0),
+      child:
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-                margin: EdgeInsets.all(15.0), child: Image.network(_imageUrl)),
+              margin: EdgeInsets.only(right: 60.0),
+              child: Image.network(_imageUrl, width: 400.0, height: 400.0),
+            ),
           ],
         ),
         Container(
-          margin: EdgeInsets.all(100.0),
+          
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
                 margin: EdgeInsets.only(bottom: 25.0),
-                child: Text('$_currentSong by $_currentArtist',
-                    style:
-                        TextStyle(fontSize: 43, fontWeight: FontWeight.bold)),
+                child: SizedBox(
+                    width: 400.0,
+                    child: Center(
+                        child: Text('$_currentSong',
+                            style: TextStyle(
+                                fontSize: 40, fontWeight: FontWeight.bold)))),
+              ),
+              Container(
+                margin: EdgeInsets.only(bottom: 25.0),
+                child: SizedBox(
+                    width: 375.0,
+                    child: Center(
+                        child: Text('$_currentArtist',
+                            style: TextStyle(
+                                fontSize: 25)))),
               ),
               Container(
                 margin: EdgeInsets.only(top: 10.0, bottom: 40.0),
@@ -127,6 +147,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         )
       ]),
-    );
+    ));
   }
 }
