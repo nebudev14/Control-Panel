@@ -35,6 +35,7 @@ def musicinfo():
     return jsonify({"info": {
         "title": current_track['item']['name'],
         "artist": current_track['item']['artists'][0]['name'],
+        "album": current_track['item']['album']['name'],
         "current_song_album": current_track['item']['album']['name'],
         "current_song_duration": current_track['item']['duration_ms'],
         "progress": current_track['progress_ms'],

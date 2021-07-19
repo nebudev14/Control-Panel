@@ -1,8 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+
+import 'dart:convert';
 
 import 'musicFunctions.dart';
 
@@ -42,6 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String _imageUrl = "";
   int _songProgress = 0;
   int _songDuration = 0;
+  String _songAlbum = "";
 
   void getSongData() async {
     const url = 'http://localhost:5000/musicinfo';
@@ -50,13 +51,10 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _currentSong = jsonDecode(response.body)['info']['title'].toString();
       _currentArtist = jsonDecode(response.body)['info']['artist'].toString();
-      _imageUrl =
-          jsonDecode(response.body)['info']['images'][0]['url'].toString();
-      _songProgress =
-          int.parse(jsonDecode(response.body)['info']['progress'].toString());
-      _songDuration = int.parse(jsonDecode(response.body)['info']
-              ['current_song_duration']
-          .toString());
+      _imageUrl = jsonDecode(response.body)['info']['images'][0]['url'].toString();
+      _songProgress = int.parse(jsonDecode(response.body)['info']['progress'].toString());
+      _songDuration = int.parse(jsonDecode(response.body)['info']['current_song_duration'].toString());
+      _songAlbum = jsonDecode(response.body)['info']['album'].toString();
     });
   }
 
@@ -77,7 +75,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
         Container(
-          
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -96,8 +93,15 @@ class _MyHomePageState extends State<MyHomePage> {
                     width: 375.0,
                     child: Center(
                         child: Text('$_currentArtist',
-                            style: TextStyle(
-                                fontSize: 25)))),
+                            style: TextStyle(fontSize: 30)))),
+              ),
+              Container(
+                margin: EdgeInsets.only(bottom: 25.0),
+                child: SizedBox(
+                    width: 375.0,
+                    child: Center(
+                        child: Text('Album: $_songAlbum',
+                            style: TextStyle(fontSize: 25)))),
               ),
               Container(
                 margin: EdgeInsets.only(top: 10.0, bottom: 40.0),
